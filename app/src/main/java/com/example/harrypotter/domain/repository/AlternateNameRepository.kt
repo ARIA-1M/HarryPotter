@@ -1,4 +1,4 @@
-package com.example.harrypotter.presentation
+package com.example.harrypotter.domain.repository
 
 import com.example.harrypotter.domain.model.AlternateName
 import kotlinx.coroutines.flow.Flow
