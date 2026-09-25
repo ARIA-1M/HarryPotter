@@ -8,11 +8,10 @@ import kotlinx.coroutines.flow.map
 class GetSortedCharacterUseCase(
     private val repository: CharacterRepository
 ) {
-    suspend fun invoke(sortBy: SortOrder): Flow<List<Character>> {
-        return repository.getAllCharacters().map { characters ->
-            when (sortBy) {
-                SortOrder.HOUSE -> characters.sortedBy { it.house }
-            }
+    suspend fun invoke(sortBy: SortOrder): List<Character>{
+        val character = repository.getAllCharacters()
+        return when (sortBy) {
+            SortOrder.HOUSE -> character.sortedBy { it.name }
         }
     }
 }

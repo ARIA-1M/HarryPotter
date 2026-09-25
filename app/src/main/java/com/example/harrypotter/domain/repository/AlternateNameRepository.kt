@@ -7,7 +7,7 @@ interface AlternateNameRepository{
     // добавление
     suspend fun addAlternateName(name: AlternateName)
     //чтение
-    suspend fun getAlternateNames(characterId: String): Flow<List<AlternateName>>
+    suspend fun getAlternateNames(characterId: String): List<AlternateName>
     //обновление
     suspend fun updateAlternateName(name: AlternateName)
     //удаление

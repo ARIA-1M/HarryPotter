@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository{
     //список персонажей
-    suspend fun getAllCharacters(): Flow<List<Character>>
+    suspend fun getAllCharacters(): List<Character>
     // фильтр персонажей по факультету
-    suspend fun getCharacterByHouse(house: String): Flow<List<Character>>
+    suspend fun getCharacterByHouse(house: String): List<Character>
 }
