@@ -1,10 +1,10 @@
 package com.example.harrypotter.data.repository
 
 import com.example.harrypotter.domain.model.AlternateName
-import com.example.harrypotter.domain.model.Character
 import com.example.harrypotter.domain.repository.AlternateNameRepository
+import jakarta.inject.Inject
 
-class AlterNameRepositoryImpl: AlternateNameRepository {
+class AlterNameRepositoryImpl @Inject constructor(): AlternateNameRepository {
     private val alterName = mutableListOf(
         AlternateName(
             id = 1,

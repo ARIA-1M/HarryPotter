@@ -2,11 +2,10 @@ package com.example.harrypotter.data.repository
 
 import com.example.harrypotter.domain.model.Character
 import com.example.harrypotter.domain.repository.CharacterRepository
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import jakarta.inject.Inject
 
-class CharacterRepositoryImpl : CharacterRepository {
+
+class CharacterRepositoryImpl @Inject constructor(): CharacterRepository {
 
     // In-memory "база" — для простого проекта достаточно.
     // Когда подключишь реальную сеть или Room — меняется только этот класс
