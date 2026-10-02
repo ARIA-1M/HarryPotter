@@ -1,7 +1,6 @@
 package com.example.harrypotter.domain.repository
 
 import com.example.harrypotter.domain.model.AlternateName
-import kotlinx.coroutines.flow.Flow
 
 interface AlternateNameRepository{
     // добавление

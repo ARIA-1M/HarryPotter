@@ -4,7 +4,7 @@ import com.example.harrypotter.domain.model.AlternateName
 import com.example.harrypotter.domain.repository.AlternateNameRepository
 import jakarta.inject.Inject
 
-class AlterNameRepositoryImpl @Inject constructor(): AlternateNameRepository {
+class AlternateNameRepositoryImpl @Inject constructor(): AlternateNameRepository {
     private val alterName = mutableListOf(
         AlternateName(
             id = 1,
@@ -98,20 +98,21 @@ class AlterNameRepositoryImpl @Inject constructor(): AlternateNameRepository {
         ),
     )
 
-    override suspend fun getAlternateNames(characterId: String): List<AlternateName>{
-        return alterName.toList()
+    override suspend fun getAlternateNames(characterId: String): List<AlternateName> {
+        return alterName.filter { it.characterId == characterId }
     }
 
-    override suspend fun addAlternateName(name: AlternateName){
-
+    override suspend fun addAlternateName(name: AlternateName) {
+        alterName.add(name)
     }
 
-    override suspend fun updateAlternateName(name: AlternateName){
-
+    override suspend fun updateAlternateName(name: AlternateName) {
+        val index = alterName.indexOfFirst { it.id == name.id }
+        if (index != -1) alterName[index] = name
     }
 
-    override suspend fun deleteAlternateName(name: AlternateName){
-
+    override suspend fun deleteAlternateName(name: AlternateName) {
+        alterName.removeAll { it.id == name.id }
     }
 
 

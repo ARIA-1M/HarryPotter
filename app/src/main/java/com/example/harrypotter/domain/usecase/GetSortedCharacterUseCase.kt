@@ -1,14 +1,14 @@
-package com.example.harrypotter.domain
+package com.example.harrypotter.domain.usecase
 
 import com.example.harrypotter.domain.repository.CharacterRepository
 import com.example.harrypotter.domain.model.Character
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class GetSortedCharacterUseCase(
+
+class GetSortedCharacterUseCase @Inject constructor(
     private val repository: CharacterRepository
 ) {
-    suspend fun invoke(sortBy: SortOrder): List<Character>{
+    suspend operator fun invoke(sortBy: SortOrder): List<Character>{
         val character = repository.getAllCharacters()
         return when (sortBy) {
             SortOrder.HOUSE -> character.sortedBy { it.name }

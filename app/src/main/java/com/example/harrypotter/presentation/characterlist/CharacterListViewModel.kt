@@ -2,8 +2,8 @@ package com.example.harrypotter.presentation.characterlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.harrypotter.domain.GetSortedCharacterUseCase
-import com.example.harrypotter.domain.SortOrder
+import com.example.harrypotter.domain.usecase.GetSortedCharacterUseCase
+import com.example.harrypotter.domain.usecase.SortOrder
 import com.example.harrypotter.domain.repository.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,8 +32,8 @@ class CharacterListViewModel @Inject constructor(
     }
 
     private fun loadCharacters() = viewModelScope.launch {
-//        _uiState.update { it.copy(isLoading =true) }
-//        val characters = getSortedCharacter(_uiState.value.sortOrder)
-//        _uiState.update { it.copy(isLoading = false, characters =characters) }
+       _uiState.update { it.copy(isLoading =true) }
+       val characters = getSortedCharacter(_uiState.value.sortOrder)
+        _uiState.update { it.copy(isLoading = false, characters = characters) }
     }
 }
