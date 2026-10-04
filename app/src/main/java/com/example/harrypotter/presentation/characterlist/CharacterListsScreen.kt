@@ -25,28 +25,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.harrypotter.domain.usecase.SortOrder
 import com.example.harrypotter.domain.model.Character
+import com.example.harrypotter.domain.usecase.SortOrder
 
 @Composable
 fun CharacterListScreen(
+    modifier: Modifier = Modifier,
     viewModel: CharacterListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     CharacterListContent(
         uiState = uiState,
-        onSortChange = viewModel::onSortOrderChanged
+        onSortChange = viewModel::onSortOrderChanged,
+        modifier = modifier
     )
 }
+
 @Composable
 fun CharacterListContent(
     uiState: CharacterListUiState,
     onSortChange: (SortOrder) -> Unit,
-
+    modifier: Modifier = Modifier
 ) {
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+    Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
 
-
+        // ===== Сортировка =====
         Text("Сортировать по:", style = MaterialTheme.typography.titleSmall)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             SortOrder.entries.forEach { order ->
@@ -76,9 +79,7 @@ fun CharacterListContent(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(uiState.characters, key = { it.id }) { character ->
-                    CharacterCard(
-                        character = character
-                    )
+                    CharacterCard(character = character)
                 }
             }
         }
@@ -86,33 +87,33 @@ fun CharacterListContent(
 }
 
 @Composable
-fun CharacterCard(
-    character: Character,
-) {
+fun CharacterCard(character: Character) {
     Card(
         modifier = Modifier
-            .fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            .fillMaxWidth()
+            .clickable {  },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        )
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    character.name,
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Text(
-                    "${character.house} · ${character.yearOfBirth}",
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-            Text("Подробнее →")
+            Text(
+                text = character.name,
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = "${character.house} · ${character.yearOfBirth}",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = "${character.species} · ${character.gender}",
+                style = MaterialTheme.typography.bodySmall
+            )
         }
     }
 }
-
-
