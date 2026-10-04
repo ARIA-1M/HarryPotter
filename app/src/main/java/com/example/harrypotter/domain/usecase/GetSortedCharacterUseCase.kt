@@ -11,7 +11,7 @@ class GetSortedCharacterUseCase @Inject constructor(
     suspend operator fun invoke(sortBy: SortOrder): List<Character>{
         val character = repository.getAllCharacters()
         return when (sortBy) {
-            SortOrder.HOUSE -> character.sortedBy { it.name }
+            SortOrder.HOUSE -> character.sortedBy { it.house }
         }
     }
 }
