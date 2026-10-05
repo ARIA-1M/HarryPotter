@@ -25,12 +25,6 @@ class CharacterListViewModel @Inject constructor(
         loadCharacters()
     }
 
-    fun onSortOrderChanged(order: SortOrder){
-        _uiState.update { it.copy(sortOrder = order) }
-        loadCharacters()
-
-    }
-
     fun onHouseSelected(house: String?) {
         _uiState.update { it.copy(selectedHouse = house) }
         loadCharacters()
@@ -38,14 +32,10 @@ class CharacterListViewModel @Inject constructor(
 
     private fun loadCharacters() = viewModelScope.launch {
         _uiState.update { it.copy(isLoading = true) }
-        val sorted = getSortedCharacter(_uiState.value.sortOrder)
-        val filtered = if (_uiState.value.selectedHouse == null) {
-            sorted
-        } else {
-            sorted.filter { it.house == _uiState.value.selectedHouse }
-        }
-
-        _uiState.update { it.copy(isLoading = false, characters = filtered) }
+        val characters = getSortedCharacter(
+            house = _uiState.value.selectedHouse
+        )
+        _uiState.update { it.copy(isLoading = false, characters = characters) }
     }
 
 }

@@ -16,6 +16,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,9 +27,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,14 +44,15 @@ import com.example.harrypotter.ui.theme.Parchment
 
 @Composable
 fun CharacterListScreen(
+    onCharacterClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CharacterListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     CharacterListContent(
         uiState = uiState,
-        onSortChange = viewModel::onSortOrderChanged,
         onHouseSelected = viewModel::onHouseSelected,
+        onCharacterClick = onCharacterClick,
         modifier = modifier
     )
 }
@@ -60,19 +60,16 @@ fun CharacterListScreen(
 @Composable
 fun CharacterListContent(
     uiState: CharacterListUiState,
-    onSortChange: (SortOrder) -> Unit,
     onHouseSelected: (String?) -> Unit,
+    onCharacterClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(Parchment)
             .padding(16.dp)
     ) {
-
-        // ===== Заголовок =====
         Text(
             text = "Персонажи Хогвартса",
             style = MaterialTheme.typography.headlineMedium,
@@ -80,9 +77,7 @@ fun CharacterListContent(
             fontWeight = FontWeight.Bold
         )
 
-
         Spacer(Modifier.height(16.dp))
-
         // ===== Фильтр по факультету =====
         Text(
             text = "Фильтр по факультету:",
@@ -131,31 +126,27 @@ fun CharacterListContent(
 
         Spacer(Modifier.height(16.dp))
 
-        // ===== Список персонажей =====
+
+        // ===== Список =====
         when {
             uiState.isLoading -> Box(
                 Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(color = GryffindorDark)
-            }
+            ) { CircularProgressIndicator(color = GryffindorDark) }
 
             uiState.characters.isEmpty() -> Box(
                 Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    "Персонажи не найдены",
-                    color = Brown,
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                Text("Персонажи не найдены", color = Brown, style = MaterialTheme.typography.bodyLarge)
             }
 
-            else -> LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
+            else -> LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 items(uiState.characters, key = { it.id }) { character ->
-                    CharacterCard(character = character)
+                    CharacterCard(
+                        character = character,
+                        onClick = { onCharacterClick(character.id) }
+                    )
                 }
             }
         }
@@ -163,16 +154,17 @@ fun CharacterListContent(
 }
 
 @Composable
-fun CharacterCard(character: Character) {
+fun CharacterCard(
+    character: Character,
+    onClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .clickable { /* позже откроем детали */ },
+            .clickable { onClick() },
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = LightInk
-        ),
+        colors = CardDefaults.cardColors(containerColor = LightInk),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Row(
@@ -182,7 +174,6 @@ fun CharacterCard(character: Character) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(Modifier.width(12.dp))
-
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -203,6 +194,17 @@ fun CharacterCard(character: Character) {
                     style = MaterialTheme.typography.bodySmall,
                     color = Brown
                 )
+                Button(
+                    onClick = onClick,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = GryffindorDark,
+                        contentColor = LightInk
+                    ),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Text("Подробнее")
+                }
+
             }
         }
     }

@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.navigation.runtime.ktx)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
@@ -80,4 +81,7 @@ dependencies {
 
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
-}
+
+
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+    implementation(libs.androidx.compose.material.icons.core)}
