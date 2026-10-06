@@ -103,7 +103,8 @@ class AlternateNameRepositoryImpl @Inject constructor(): AlternateNameRepository
     }
 
     override suspend fun addAlternateName(name: AlternateName) {
-        alterName.add(name)
+        val newId = (alterName.maxOfOrNull { it.id } ?: 0) + 1
+        alterName.add(name.copy(id = newId))
     }
 
     override suspend fun updateAlternateName(name: AlternateName) {
@@ -114,6 +115,5 @@ class AlternateNameRepositoryImpl @Inject constructor(): AlternateNameRepository
     override suspend fun deleteAlternateName(name: AlternateName) {
         alterName.removeAll { it.id == name.id }
     }
-
 
 }
