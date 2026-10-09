@@ -6,9 +6,6 @@ import jakarta.inject.Inject
 
 
 class CharacterRepositoryImpl @Inject constructor(): CharacterRepository {
-
-    // In-memory "база" — для простого проекта достаточно.
-    // Когда подключишь реальную сеть или Room — меняется только этот класс
     private val characters = mutableListOf(
         Character(
             id = "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
