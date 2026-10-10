@@ -31,11 +31,22 @@ class CharacterListViewModel @Inject constructor(
     }
 
     private fun loadCharacters() = viewModelScope.launch {
-        _uiState.update { it.copy(isLoading = true) }
-        val characters = getSortedCharacter(
-            house = _uiState.value.selectedHouse
-        )
-        _uiState.update { it.copy(isLoading = false, characters = characters) }
+
+        try {
+            _uiState.update { it.copy(isLoading = true) }
+            val characters = getSortedCharacter(
+                house = _uiState.value.selectedHouse
+            )
+            _uiState.update { it.copy(isLoading = false, characters = characters) }
+        }
+        catch (e: Exception) {
+            _uiState.update {
+                it.copy(
+                    isLoading = false,
+                    errorMessage = "Не удалось загрузить фильмы"
+                )
+            }
+        }
     }
 
 }
