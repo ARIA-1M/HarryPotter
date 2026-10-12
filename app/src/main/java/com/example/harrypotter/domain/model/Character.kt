@@ -7,5 +7,6 @@ data class Character(
     val species: String,
     val gender: String,
     val house: String,
-    val yearOfBirth: Int
+    val yearOfBirth: Int,
+    val coverImagePath: String? = null
 )
