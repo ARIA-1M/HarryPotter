@@ -6,5 +6,7 @@ import com.example.harrypotter.domain.model.Character
 interface CharacterRepository{
     //список персонажей
     suspend fun getAllCharacters(): List<Character>
-    suspend fun updateCoverImage(movieId: String, sourceUri: String): String
+    suspend fun updateImage(characterId: String, sourceUri: String): String
+
+
 }

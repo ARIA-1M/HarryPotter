@@ -1,6 +1,6 @@
-package com.example.harrypotter.data.remote.dto
+package com.example.harrypotter.data.remote
 
-import com.example.harrypotter.data.remote.CharacterDto
+import com.example.harrypotter.data.remote.dto.CharacterDto
 import retrofit2.http.GET
 
 interface CharacterApi {

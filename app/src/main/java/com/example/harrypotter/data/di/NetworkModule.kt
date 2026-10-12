@@ -1,6 +1,6 @@
 package com.example.harrypotter.data.di
 
-import com.example.harrypotter.data.remote.dto.CharacterApi
+import com.example.harrypotter.data.remote.CharacterApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides

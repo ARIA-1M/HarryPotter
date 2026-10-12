@@ -1,9 +1,9 @@
 package com.example.harrypotter.data.repository
 
-import com.example.harrypotter.data.local.AlterNameDao
-import com.example.harrypotter.data.local.AlterNameEntity
-import com.example.harrypotter.data.local.toDomain
-import com.example.harrypotter.data.local.toEntity
+import com.example.harrypotter.data.local.altername.AlterNameDao
+import com.example.harrypotter.data.local.altername.AlterNameEntity
+import com.example.harrypotter.data.local.altername.toDomain
+import com.example.harrypotter.data.local.altername.toEntity
 import com.example.harrypotter.domain.model.AlternateName
 import com.example.harrypotter.domain.repository.AlternateNameRepository
 import jakarta.inject.Inject
@@ -136,4 +136,6 @@ class AlternateNameRepositoryImpl @Inject constructor(
     override suspend fun deleteAlternateName(name: AlternateName) {
         dao.delete(name.toEntity())
     }
+
+
 }

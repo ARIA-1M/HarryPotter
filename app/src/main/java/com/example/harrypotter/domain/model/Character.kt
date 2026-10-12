@@ -8,5 +8,5 @@ data class Character(
     val gender: String,
     val house: String,
     val yearOfBirth: Int,
-    val coverImagePath: String? = null
+    val customImagePath: String? = null
 )

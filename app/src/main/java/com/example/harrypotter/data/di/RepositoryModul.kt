@@ -23,5 +23,4 @@ abstract class RepositoryModule {
     abstract fun bindCharacterRepository(
         impl: CharacterRepositoryImpl
     ): CharacterRepository
-
 }

@@ -1,4 +1,4 @@
-package com.example.harrypotter.data.local
+package com.example.harrypotter.data.local.altername
 
 import androidx.room3.Entity
 import androidx.room3.PrimaryKey

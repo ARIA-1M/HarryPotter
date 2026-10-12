@@ -1,4 +1,4 @@
-package com.example.harrypotter.data.local
+package com.example.harrypotter.data.local.altername
 
 import com.example.harrypotter.domain.model.AlternateName
 

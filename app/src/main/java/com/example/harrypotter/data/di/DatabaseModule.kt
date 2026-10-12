@@ -1,8 +1,8 @@
 package com.example.harrypotter.data.di
 
 import androidx.room3.Room
-import com.example.harrypotter.data.local.AlterNameDao
-import com.example.harrypotter.data.local.AlterNameDatabase
+import com.example.harrypotter.data.local.altername.AlterNameDao
+import com.example.harrypotter.data.local.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,15 +16,15 @@ import javax.inject.Singleton
 object DatabaseModule{
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): AlterNameDatabase{
+    fun provideDatabase(@ApplicationContext context: Context): Database{
         return Room.databaseBuilder(
             context,
-            AlterNameDatabase::class.java,
-            "altername.db"
+            Database::class.java,
+            "harry_potter.db"
 
         ).build()
     }
 
     @Provides
-    fun proviedAlterNameDao(database: AlterNameDatabase): AlterNameDao = database.alterNameDao()
+    fun proviedAlterNameDao(database: Database): AlterNameDao = database.alterNameDao()
 }

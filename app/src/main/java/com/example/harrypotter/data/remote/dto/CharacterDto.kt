@@ -1,4 +1,4 @@
-package com.example.harrypotter.data.remote
+package com.example.harrypotter.data.remote.dto
 
 import kotlinx.serialization.Serializable
 
@@ -9,5 +9,6 @@ data class CharacterDto(
     val species: String,
     val gender: String,
     val house: String,
-    val yearOfBirth: Int? = null
+    val yearOfBirth: Int? = null,
+    val imageUrl: String = "",
 )

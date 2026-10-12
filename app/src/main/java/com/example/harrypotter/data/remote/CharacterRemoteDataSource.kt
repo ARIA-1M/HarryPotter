@@ -1,6 +1,6 @@
 package com.example.harrypotter.data.remote
 
-import com.example.harrypotter.data.remote.dto.CharacterApi
+import com.example.harrypotter.data.remote.dto.CharacterDto
 import javax.inject.Inject
 
 class CharacterRemoteDataSource @Inject constructor(
