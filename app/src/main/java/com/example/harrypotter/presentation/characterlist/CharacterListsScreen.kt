@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -142,13 +143,13 @@ fun CharacterListContent(
             uiState.isLoading -> Box(
                 Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
-            ) { CircularProgressIndicator(color = GryffindorDark) }
+            ) { CircularProgressIndicator(color = GryffindorDark,  modifier = Modifier.testTag("loading_indicator") ) }
 
             uiState.characters.isEmpty() -> Box(
                 Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Персонажи не найдены", color = Brown, style = MaterialTheme.typography.bodyLarge)
+                Text("Персонажи не найдены", color = Brown, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag("empty_message"))
             }
 
             else -> LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -179,7 +180,8 @@ fun CharacterCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp)),
+            .clip(RoundedCornerShape(16.dp))
+            .testTag("character_card_${character.id}"),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = LightInk),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
@@ -220,7 +222,8 @@ fun CharacterCard(
                     text = character.name,
                     style = MaterialTheme.typography.titleMedium,
                     color = GryffindorDark,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.testTag("character_name_${character.id}")
                 )
                 Text(
                     text = "${character.house} · ${character.yearOfBirth}",
@@ -234,7 +237,7 @@ fun CharacterCard(
                 )
             }
 
-            IconButton(onClick = { pickImageLauncher.launch("image/*") }) {
+            IconButton(onClick = { pickImageLauncher.launch("image/*") }, modifier = Modifier.testTag("image_button_${character.id}") ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = "Сменить фото",
@@ -244,6 +247,7 @@ fun CharacterCard(
 
             Button(
                 onClick = onClick,
+                modifier = Modifier.testTag("details_button_${character.id}"),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = GryffindorDark,
                     contentColor = LightInk
