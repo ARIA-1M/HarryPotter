@@ -8,12 +8,12 @@ import androidx.room3.Query
 @Dao
 interface CharacterDao {
 
-    // Сохранить путь (если уже есть — перезаписать)
+    // Сохранить путь
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(image: CharacterEntity)
 
     // Получить путь по ID персонажа
-    @Query("SELECT customImagePath FROM character_images WHERE characterId = :id")
+    @Query("SELECT imagePath FROM character_images WHERE characterId = :id")
     suspend fun getImagePath(id: String): String?
 
     @Query("DELETE FROM character_images WHERE characterId = :id")

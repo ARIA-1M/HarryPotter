@@ -48,18 +48,15 @@ fun AlterNameEditScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    // Загружаем имя, если редактирование
     LaunchedEffect(nameId, characterId) {
         if (nameId != null) {
             viewModel.loadName(nameId, characterId)
         }
     }
 
-    // Локальные состояния полей
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
-    // Как только имя загрузилось — заполняем поля
     LaunchedEffect(uiState.name) {
         uiState.name?.let {
             title = it.title
@@ -67,7 +64,6 @@ fun AlterNameEditScreen(
         }
     }
 
-    // После сохранения — возвращаемся назад
     LaunchedEffect(uiState.isSaved) {
         if (uiState.isSaved) {
             onSaved()

@@ -27,7 +27,6 @@ class AlterNameListViewModel @Inject constructor(
         _uiState.update { it.copy(isLoading = false, alterName = names) }
     }
 
-
     fun addAlternateName(title: String, description: String) = viewModelScope.launch {
         val newName = AlternateName(
             id = 0,
@@ -36,7 +35,6 @@ class AlterNameListViewModel @Inject constructor(
             characterId = _uiState.value.characterId
         )
         repository.addAlternateName(newName)
-        // Обновляем список
         loadAlterNames(_uiState.value.characterId)
     }
 

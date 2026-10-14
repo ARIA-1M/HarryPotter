@@ -30,6 +30,19 @@ class CharacterListViewModel @Inject constructor(
         loadCharacters()
     }
 
+    fun onImageSelected(characterId: String, sourceUri: String) = viewModelScope.launch {
+        val savedPath = repository.updateImage(characterId, sourceUri)
+
+        val updatedCharacters = _uiState.value.characters.map { character ->
+            if (character.id == characterId) {
+                character.copy(imagePath = savedPath)
+            } else {
+                character
+            }
+        }
+        _uiState.update { it.copy(characters = updatedCharacters) }
+    }
+
     private fun loadCharacters() = viewModelScope.launch {
 
         try {
@@ -43,10 +56,12 @@ class CharacterListViewModel @Inject constructor(
             _uiState.update {
                 it.copy(
                     isLoading = false,
-                    errorMessage = "Не удалось загрузить фильмы"
+                    errorMessage = "Не удалось загрузить персонажей"
                 )
             }
         }
     }
+
+
 
 }

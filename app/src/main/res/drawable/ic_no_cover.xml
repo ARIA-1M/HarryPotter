@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Фон-круг -->
+    <path
+        android:fillColor="#F5F0E1"
+        android:pathData="M60,0 C93.14,0 120,26.86 120,60 C120,93.14 93.14,120 60,120 C26.86,120 0,93.14 0,60 C0,26.86 26.86,0 60,0 Z"/>
+
+    <!-- Голова (круг) -->
+    <path
+        android:fillColor="#C3A87F"
+        android:pathData="M60,30 C70,30 78,38 78,48 C78,58 70,66 60,66 C50,66 42,58 42,48 C42,38 50,30 60,30 Z"/>
+
+    <!-- Тело (плечи) -->
+    <path
+        android:fillColor="#C3A87F"
+        android:pathData="M30,100 C30,82 44,72 60,72 C76,72 90,82 90,100 Z"/>
+
+    <!-- Рамка (обводка круга) -->
+    <path
+        android:strokeColor="#87551D"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"
+        android:pathData="M60,2 C92.03,2 118,27.97 118,60 C118,92.03 92.03,118 60,118 C27.97,118 2,92.03 2,60 C2,27.97 27.97,2 60,2 Z"/>
+
+</vector>

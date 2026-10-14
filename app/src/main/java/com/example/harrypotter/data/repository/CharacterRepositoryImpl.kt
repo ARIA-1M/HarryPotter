@@ -16,10 +16,13 @@ class CharacterRepositoryImpl @Inject constructor(
 
     override suspend fun getAllCharacters(): List<Character> {
         val remote = remoteDataSource.fetchCharacters()
+        println("IMG_DEBUG: got ${remote.size} characters")
+        remote.take(5).forEach { dto ->
+            println("IMG_DEBUG: id=${dto.id}, imageUrl='${dto.imagePath}'")
+        }
         return remote.map { dto ->
-            // Если в БД есть своя картинка берём её, иначе URL из API
             val customPath = localDataSource.getImagePath(dto.id)
-            dto.toDomain(imagePath = customPath ?: dto.imageUrl)
+            dto.toDomain(imagePath = customPath ?: dto.imagePath)
         }
     }
 
@@ -38,5 +41,5 @@ fun CharacterDto.toDomain(imagePath: String) = Character(
     gender = gender,
     house = house,
     yearOfBirth = yearOfBirth ?: 0,
-    customImagePath = imageUrl ?:null
+    imagePath = imagePath ?:null
 )

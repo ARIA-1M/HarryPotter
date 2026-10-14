@@ -7,7 +7,6 @@ import javax.inject.Inject
 class AlterNameLocalDataSource @Inject constructor(
     private val dao: AlterNameDao
 ) {
-    // ===== READ =====
     suspend fun getAlterNames(characterId: String): List<AlternateName> {
         return dao.getByCharacter(characterId).map { it.toDomain() }
     }
@@ -20,17 +19,14 @@ class AlterNameLocalDataSource @Inject constructor(
         return dao.getByCharacter(characterId).isNotEmpty()
     }
 
-    // ===== CREATE =====
     suspend fun addAlterName(name: AlternateName) {
         dao.insert(name.toEntity())
     }
 
-    // ===== UPDATE =====
     suspend fun updateAlterName(name: AlternateName) {
         dao.update(name.toEntity())
     }
 
-    // ===== DELETE =====
     suspend fun deleteAlterName(name: AlternateName) {
         dao.delete(name.toEntity())
     }

@@ -20,7 +20,6 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
-        // HP API не требует авторизации, поэтому только логирование
         return OkHttpClient.Builder()
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
@@ -34,7 +33,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         val json = Json {
-            ignoreUnknownKeys = true    // сервер присылает много лишних полей
+            ignoreUnknownKeys = true
             coerceInputValues = true
         }
         return Retrofit.Builder()
@@ -48,6 +47,5 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideCharacterApi(retrofit: Retrofit): CharacterApi =
-        retrofit.create(CharacterApi::class.java)
+    fun provideCharacterApi(retrofit: Retrofit): CharacterApi = retrofit.create(CharacterApi::class.java)
 }
